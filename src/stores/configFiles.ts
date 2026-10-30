@@ -25,14 +25,20 @@ export const useConfigFilesStore = defineStore('configFiles', () => {
         return files.value.filter((f) => f.enabled).length
     })
 
-    function selectedFile(id: string) {
+    function selectFile(id: string) {
         selectedId.value = id
     }
 
     function toggleFile(id: string) {
-        const file = files.value.find((f) => f.id === id)
-        if (!file) return
-        file.enabled = !file.enabled
+    console.log('toggleFile called with:', id)
+    const file = files.value.find((f) => f.id === id)
+    if (!file) {
+        console.log('File not found')
+        return
+    }
+    file.enabled = !file.enabled
+    console.log('New enabled value:', file.enabled)
+    console.log('Current enabledCount:', enabledCount.value)
     }
 
     function updateContent(content: string) {
@@ -41,11 +47,12 @@ export const useConfigFilesStore = defineStore('configFiles', () => {
     }
 
     return {
-        files, 
-        selectedId,
-        selectedFile,
-        enabledCount,
-        toggleFile,
-        updateContent,
+    files,
+    selectedId,
+    selectedFile,
+    enabledCount,
+    selectFile,
+    toggleFile,
+    updateContent,
     }
 })

@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import { useConfigFilesStore } from '@/stores/configFiles'
+import { storeToRefs } from 'pinia'
+
+const store = useConfigFilesStore()
+const { enabledCount } = storeToRefs(store)
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+<p>{{ enabledCount }} configured</p>
+
+<button @click="store.toggleFile('agent')">
+  Toggle agent
+</button>
 </template>
